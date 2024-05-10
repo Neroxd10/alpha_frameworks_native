@@ -1346,12 +1346,11 @@ std::optional<base::unique_fd> Output::composeSurfaces(
     // or complex GPU shaders and it's expensive. We boost the GPU frequency so that
     // GPU composition can finish in time. We must reset GPU frequency afterwards,
     // because high frequency consumes extra battery.
-    const bool expensiveRenderingExpected = mLayerRequestingBackgroundBlur != nullptr ||
+    const bool expensiveRenderingExpected =
             std::any_of(clientCompositionLayers.begin(), clientCompositionLayers.end(),
                         [outputDataspace =
                                  clientCompositionDisplay.outputDataspace](const auto& layer) {
-                            return layer.sourceDataspace != ui::Dataspace::UNKNOWN
-                                    && layer.sourceDataspace != outputDataspace;
+                            return layer.sourceDataspace != outputDataspace;
                         });
     if (expensiveRenderingExpected) {
         setExpensiveRenderingExpected(true);

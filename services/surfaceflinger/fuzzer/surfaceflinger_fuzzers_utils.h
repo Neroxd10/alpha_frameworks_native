@@ -610,7 +610,7 @@ public:
         {
             ftl::FakeGuard guard(kMainThreadContext);
 
-            mFlinger->commitTransactionsLegacy();
+            mFlinger->commitTransactions();
             mFlinger->flushTransactionQueues(getFuzzedVsyncId(mFdp));
 
             scheduler::FrameTargeter frameTargeter(displayId, mFdp.ConsumeBool());

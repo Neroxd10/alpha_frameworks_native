@@ -751,8 +751,7 @@ private:
                                             bool force = false)
             REQUIRES(mStateLock, kMainThreadContext);
 
-    void commitTransactionsLegacy() EXCLUDES(mStateLock) REQUIRES(kMainThreadContext);
-    void commitTransactions() REQUIRES(kMainThreadContext, mStateLock);
+    void commitTransactions() EXCLUDES(mStateLock) REQUIRES(kMainThreadContext);
     void commitTransactionsLocked(uint32_t transactionFlags)
             REQUIRES(mStateLock, kMainThreadContext);
     void doCommitTransactions() REQUIRES(mStateLock);
@@ -805,8 +804,8 @@ private:
     bool flushTransactionQueues(VsyncId) REQUIRES(kMainThreadContext);
 
     bool applyTransactions(std::vector<TransactionState>&, VsyncId) REQUIRES(kMainThreadContext);
-    bool applyAndCommitDisplayTransactionStatesLocked(std::vector<TransactionState>& transactions)
-            REQUIRES(kMainThreadContext, mStateLock);
+    bool applyAndCommitDisplayTransactionStates(std::vector<TransactionState>& transactions)
+            REQUIRES(kMainThreadContext);
 
     // Returns true if there is at least one transaction that needs to be flushed
     bool transactionFlushNeeded();
